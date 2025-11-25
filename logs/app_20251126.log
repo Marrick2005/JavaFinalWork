@@ -1,0 +1,6 @@
+[2025-11-26 00:00:47.693] [INFO] 程序结束
+[2025-11-26 00:00:50.189] [INFO] 程序启动...
+[2025-11-26 00:00:59.220] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [2410160121, stu123] Time: [160ms] Status: [Success]
+[2025-11-26 00:01:51.753] [INFO] Service: [GradeServiceImpl] Method: [queryStudentGrades] Operation: [查询] Args: [7] Time: [6ms] ResultSize: [2] Status: [Success]
+[2025-11-26 00:01:51.756] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [1] Time: [1ms] Status: [Success]
+[2025-11-26 00:01:51.758] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [5] Time: [1ms] Status: [Success]
