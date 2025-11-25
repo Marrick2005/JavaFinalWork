@@ -1,12 +1,14 @@
 package com.java.homework.proxy;
 
 import com.java.homework.util.JDBCUtil;
+import com.java.homework.util.LogUtil;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 服务层动态代理工厂：实现日志输出和事务管理
@@ -40,34 +42,66 @@ public class ServiceProxyFactory {
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
             String methodName = method.getName();
-            String operation = getOperationType(methodName); // 解析操作类型
+            String operation = getOperationType(methodName);
+            String serviceName = target.getClass().getSimpleName();
             Object result = null;
-            String logMsg = "[" + DATE_FORMAT.format(new Date()) + "] 完成了 [" + operation + "] 操作";
-
+            long startTime = System.currentTimeMillis();
+            
+            // 构建详细日志信息
+            StringBuilder logBuilder = new StringBuilder();
+            logBuilder.append("Service: [").append(serviceName).append("] ");
+            logBuilder.append("Method: [").append(methodName).append("] ");
+            logBuilder.append("Operation: [").append(operation).append("]");
+            
+            // 记录参数信息
+            if (args != null && args.length > 0) {
+                logBuilder.append(" Args: [");
+                for (int i = 0; i < args.length; i++) {
+                    logBuilder.append(args[i]);
+                    if (i < args.length - 1) {
+                        logBuilder.append(", ");
+                    }
+                }
+                logBuilder.append("]");
+            }
+            
             try {
                 // 事务管理：增删改方法开启事务
                 if (isModifyMethod(methodName)) {
                     JDBCUtil.beginTransaction();
                 }
-
-                // 输出日志
-                System.out.println(logMsg);
-
+                
                 // 执行目标方法
                 result = method.invoke(target, args);
-
+                
                 // 提交事务
                 if (isModifyMethod(methodName)) {
                     JDBCUtil.commitTransaction();
                 }
+                
+                // 记录执行时间和结果
+                long endTime = System.currentTimeMillis();
+                logBuilder.append(" Time: [").append(endTime - startTime).append("ms]");
+                
+                // 对于查询操作，可以选择性记录结果数量
+                if (!isModifyMethod(methodName) && result instanceof List) {
+                    logBuilder.append(" ResultSize: [").append(((List<?>) result).size()).append("]");
+                }
+                
+                // 使用LogUtil输出成功日志
+                LogUtil.info(logBuilder.toString() + " Status: [Success]");
+                
             } catch (Exception e) {
                 // 回滚事务
                 if (isModifyMethod(methodName)) {
                     JDBCUtil.rollbackTransaction();
                 }
-                throw e;
+                
+                // 使用LogUtil输出错误日志
+                LogUtil.error(logBuilder.toString() + " Status: [Error]", e);
+                throw e.getCause(); // 抛出原始异常
             }
-
+            
             return result;
         }
 

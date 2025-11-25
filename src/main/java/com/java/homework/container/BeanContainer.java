@@ -96,7 +96,22 @@ public class BeanContainer {
         if (bean == null) {
             throw new RuntimeException("Bean未找到：" + clazz.getName());
         }
+        
+        // 为服务层接口返回代理对象，以支持日志输出
+        if (isServiceInterface(clazz)) {
+            return (T) com.java.homework.proxy.ServiceProxyFactory.createProxy(bean);
+        }
+        
         return bean;
+    }
+    
+    /**
+     * 判断是否为服务层接口
+     */
+    private boolean isServiceInterface(Class<?> clazz) {
+        // 通过包名判断是否为服务层接口
+        String packageName = clazz.getPackage().getName();
+        return packageName.equals("com.java.homework.service") && clazz.isInterface();
     }
 
     private void injectDependencies() {
