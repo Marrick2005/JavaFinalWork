@@ -170,4 +170,34 @@ public class JdbcUserDAO implements UserDAO {
         }
         return users;
     }
+
+    @Override
+    public User findByUsername(String username) {
+        String sql = "SELECT * FROM Users WHERE username = ?";
+        Connection conn = JDBCUtil.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setName(rs.getString("name"));
+                user.setClassName(rs.getString("className"));
+                user.setMajorName(rs.getString("majorName"));
+                user.setCreatedTime(rs.getTimestamp("created_time"));
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCUtil.close(rs, pstmt, conn);
+        }
+        return null;
+    }
 }

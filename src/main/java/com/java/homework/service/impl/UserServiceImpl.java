@@ -41,10 +41,33 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+        // 调用DAO层根据用户名查询用户
+        return userDAO.findByUsername(username);
+    }
+    
+    @Override
     public void addStudent(User student) {
+        // 检查用户名是否已存在
+        User existingUser = findByUsername(student.getUsername());
+        if (existingUser != null) {
+            throw new RuntimeException("用户名'" + student.getUsername() + "'已存在，请更换其他用户名！");
+        }
         // 确保学生角色正确，调用DAO新增
         student.setRole("Student");
         userDAO.addUser(student);
+    }
+    
+    @Override
+    public void addTeacher(User teacher) {
+        // 检查用户名是否已存在
+        User existingUser = findByUsername(teacher.getUsername());
+        if (existingUser != null) {
+            throw new RuntimeException("用户名'" + teacher.getUsername() + "'已存在，请更换其他用户名！");
+        }
+        // 确保教师角色正确，调用DAO新增
+        teacher.setRole("Teacher");
+        userDAO.addUser(teacher);
     }
 
     @Override

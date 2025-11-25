@@ -285,12 +285,16 @@ public class AdminHandler {
         teacher.setCreatedTime(new Date());
         
         try {
-            // 使用addStudent方法但修改角色为Teacher
-            teacher.setRole("Teacher");
-            userService.addStudent(teacher); // 注意：这里直接使用现有的addStudent方法，因为底层实现是通用的
+            // 使用专门的addTeacher方法
+            userService.addTeacher(teacher);
             System.out.println("\n教师添加成功！");
         } catch (Exception e) {
-            System.out.println("\n教师添加失败：" + e.getMessage());
+            // 捕获并处理异常
+            if (e.getMessage().contains("Duplicate entry") && e.getMessage().contains("for key 'users.username'")) {
+                System.out.println("\n教师添加失败：用户名已存在，请更换其他用户名！");
+            } else {
+                System.out.println("\n教师添加失败：" + e.getMessage());
+            }
         }
     }
 

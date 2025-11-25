@@ -81,4 +81,13 @@ public class FileUserDAO implements UserDAO {
         // 按角色筛选
         return users.stream().filter(u -> u.getRole().equals(role)).toList();
     }
+
+    @Override
+    public User findByUsername(String username) {
+        List<User> users = JSONUtil.readFromJson(FILE_NAME, new TypeToken<List<User>>() {}.getType());
+        return users.stream()
+                .filter(u -> u.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+    }
 }

@@ -52,4 +52,19 @@ public interface UserService {
      * @return 用户实体
      */
     User getUserById(Integer id);
+
+    // 在现有方法后添加
+    /**
+     * 新增教师
+     * @param teacher 教师实体
+     */
+    void addTeacher(User teacher);
+    
+    // 添加根据用户名查询用户的方法
+    /**
+     * 根据用户名查询用户（用于检查用户名是否存在）
+     * @param username 用户名
+     * @return 用户实体，如果不存在返回null
+     */
+    User findByUsername(String username);
 }

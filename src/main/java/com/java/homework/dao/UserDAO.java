@@ -20,4 +20,11 @@ public interface UserDAO {
     void updateUser(User user);
     // 查询所有用户（按角色筛选）
     List<User> listAll(String role);
+    // 添加根据用户名查询用户的方法
+    /**
+     * 根据用户名查询用户
+     * @param username 用户名
+     * @return 用户实体，如果不存在返回null
+     */
+    User findByUsername(String username);
 }
