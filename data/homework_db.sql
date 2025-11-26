@@ -2,31 +2,31 @@
 CREATE DATABASE IF NOT EXISTS java_homework CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE java_homework;
 
--- 创建Users表（用户/学生/教师/管理员）
+-- 创建Users表（用户）
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
-                       id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
-                       username VARCHAR(20) NOT NULL UNIQUE COMMENT '登录用户名',
-                       password VARCHAR(20) NOT NULL COMMENT '登录密码',
-                       role VARCHAR(10) NOT NULL COMMENT '角色：Admin/Teacher/Student',
-                       name VARCHAR(20) NOT NULL COMMENT '真实姓名（学生需包含本人姓名）',
-                       className VARCHAR(20) COMMENT '班级（仅学生有值）',
-                       majorName VARCHAR(20) COMMENT '专业（仅学生有值）',
-                       created_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
-) COMMENT '用户表';
+    id INT PRIMARY KEY AUTO_INCREMENT COMMENT '用户ID',
+    username VARCHAR(20) NOT NULL UNIQUE COMMENT '登录用户名',
+    password VARCHAR(20) NOT NULL COMMENT '登录密码',
+    role VARCHAR(10) NOT NULL COMMENT '角色：Admin/Teacher/Student',
+    name VARCHAR(50) NOT NULL COMMENT '真实姓名（学生需包含本人姓名）', -- 从20→50
+    className VARCHAR(20) COMMENT '班级（仅学生有值）',
+    majorName VARCHAR(20) COMMENT '专业（仅学生有值）',
+    created_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间'
+) COMMENT '用户表' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- 创建Courses表（开课实例）
+-- 重新定义Courses表
 DROP TABLE IF EXISTS Courses;
 CREATE TABLE Courses (
-                         id INT PRIMARY KEY AUTO_INCREMENT COMMENT '课程ID',
-                         courseName VARCHAR(50) NOT NULL COMMENT '课程名称（必需包含《Java 应用开发》）',
-                         credits INT NOT NULL COMMENT '学分',
-                         teacherId INT NOT NULL COMMENT '任课教师ID（关联Users表）',
-                         className VARCHAR(20) NOT NULL COMMENT '授课班级',
-                         semester VARCHAR(20) NOT NULL COMMENT '开课学期（如2025-2026-1）',
-                         classSize INT NOT NULL COMMENT '班级人数',
-                         FOREIGN KEY (teacherId) REFERENCES Users(id)
-) COMMENT '课程表（开课实例）';
+    id INT PRIMARY KEY AUTO_INCREMENT COMMENT '课程ID',
+    courseName VARCHAR(100) NOT NULL COMMENT '课程名称（必需包含《Java 应用开发》）', -- 从50→100
+    credits INT NOT NULL COMMENT '学分',
+    teacherId INT NOT NULL COMMENT '任课教师ID（关联Users表）',
+    className VARCHAR(20) NOT NULL COMMENT '授课班级',
+    semester VARCHAR(20) NOT NULL COMMENT '开课学期（如2025-2026-1）',
+    classSize INT NOT NULL COMMENT '班级人数',
+    FOREIGN KEY (teacherId) REFERENCES Users(id)
+) COMMENT '课程表（开课实例）' CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- 创建Grades表（成绩）
 DROP TABLE IF EXISTS Grades;
@@ -171,39 +171,58 @@ VALUES
     ('移动开发', 3, 5, '计算机2401班', '2025-2026-1', 50),
     ('信息安全', 2, 6, '计算机2402班', '2025-2026-1', 50);
 
--- 初始化成绩（30名学生、5门课程、3个班、3名教师）
+-- 初始化成绩
 INSERT INTO Grades (studentId, offeringId, score)
 VALUES
--- 1. 大数据2401班（学生ID 3-12，关联教师ID 2、3，课程ID 1、2、5）
-(3, 1, 90), -- 张三 《Java 应用开发》（教师2）
-(3, 2, 85), -- 张三 《数据库原理》（教师3）
-(4, 1, 82), -- 钱二 《Java 应用开发》
-(4, 5, 78), -- 钱二 《数据结构》（教师6，补充覆盖第5门课）
-(5, 2, 92), -- 孙三 《数据库原理》
-(5, 1, 86), -- 孙三 《Java 应用开发》
-(6, 5, 80), -- 李四 《数据结构》
-(6, 2, 75), -- 李四 《数据库原理》
-(7, 1, 79), -- 周五 《Java 应用开发》
-(7, 5, 83), -- 周五 《数据结构》
-(8, 2, 88), -- 吴六 《数据库原理》
-(8, 1, 91), -- 吴六 《Java 应用开发》
-(9, 5, 72), -- 郑七 《数据结构》
-(9, 2, 84), -- 郑七 《数据库原理》
-(10, 1, 87), -- 王八 《Java 应用开发》
-(10, 5, 76), -- 王八 《数据结构》
-(11, 2, 93), -- 冯九 《数据库原理》
-(11, 1, 81), -- 冯九 《Java 应用开发》
-(12, 5, 89), -- 陈十 《数据结构》
-(12, 2, 77), -- 陈十 《数据库原理》
--- 2. 大数据2402班（学生ID 26-30，关联教师ID 4，课程ID 3）
-(26, 3, 70), -- 孔二五 《操作系统》（教师4）
-(27, 3, 85), -- 曹二六 《操作系统》
-(28, 3, 68), -- 严二七 《操作系统》
-(29, 3, 92), -- 华二八 《操作系统》
-(30, 3, 79), -- 金二九 《操作系统》
--- 3. 计算机2401班（学生ID 31-32，关联教师ID 5，课程ID 4）
-(31, 4, 83), -- 韦五十 《计算机网络》（教师5）
-(32, 4, 75), -- 昌五一 《计算机网络》
--- 补充剩余2组，确保30组完整
-(13, 1, 65), -- 褚十一 《Java 应用开发》
-(14, 3, 95); -- 卫十二 《操作系统》
+-- 1. 大数据2401班（学生ID 7-17，关联教师ID 2、3，课程ID 1、2、5）
+(7, 2, 95),  -- 马如君 《数据库原理》（教师3）
+(7, 1, 96),  -- 马如君 《Java 应用开发》
+(7, 5, 99),  -- 马如君 《数据结构》
+(7, 3, 99),
+(7, 4, 99),
+(8, 1, 90),  -- 赵一 《Java 应用开发》
+(8, 2, 85),  -- 赵一 《数据库原理》
+(9, 1, 82),  -- 钱二 《Java 应用开发》
+(9, 5, 78),  -- 钱二 《数据结构》
+(10, 2, 92), -- 孙三 《数据库原理》
+(10, 1, 86), -- 孙三 《Java 应用开发》
+(11, 5, 55), -- 李四 《数据结构》
+(11, 2, 75), -- 李四 《数据库原理》
+(12, 1, 79), -- 周五 《Java 应用开发》
+(12, 5, 33), -- 周五 《数据结构》
+(13, 2, 88), -- 吴六 《数据库原理》
+(13, 1, 91), -- 吴六 《Java 应用开发》
+(14, 5, 66), -- 郑七 《数据结构》
+(14, 2, 84), -- 郑七 《数据库原理》
+(15, 1, 87), -- 王八 《Java 应用开发》
+(15, 5, 76), -- 王八 《数据结构》
+(16, 2, 93), -- 冯九 《数据库原理》
+(16, 1, 81), -- 冯九 《Java 应用开发》
+(17, 5, 89), -- 陈十 《数据结构》
+(17, 2, 77), -- 陈十 《数据库原理》
+-- 2. 大数据2402班（学生ID 32-36，关联教师ID 4，课程ID 3）
+(32, 3, 70), -- 孔二五 《操作系统》
+(33, 3, 85), -- 曹二六 《操作系统》
+(34, 3, 68), -- 严二七 《操作系统》
+(35, 3, 92), -- 华二八 《操作系统》
+(36, 3, 79), -- 金二九 《操作系统》
+-- 3. 计算机2401班（学生ID 57-58，关联教师ID 5，课程ID 4）
+(57, 4, 83), -- 韦五十 《计算机网络》
+(58, 4, 75), -- 昌五一 《计算机网络》
+(59, 4, 55), 
+(18, 1, 65), -- 褚十一 《Java 应用开发》
+(19, 3, 95), -- 卫十二 《操作系统》
+(60, 4, 55),
+(61, 4, 55), 
+(62, 4, 55), 
+(63, 4, 55), 
+(64, 4, 55), 
+(68, 4, 55), 
+(65, 4, 55), 
+(66, 4, 55),
+(67, 4, 55), 
+(69, 4, 55), 
+(70, 4, 55), 
+(71, 4, 55), 
+(72, 4, 55), 
+(73, 4, 55);

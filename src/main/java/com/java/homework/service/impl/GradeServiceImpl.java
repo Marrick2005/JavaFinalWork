@@ -157,15 +157,19 @@ public class GradeServiceImpl implements GradeService {
     }
 
     /**
-     * 判断单个学生是否为“学霸”（私有工具方法）
+     * 判断单个学生是否为"学霸"（私有工具方法）
      */
     private boolean isTopStudent(User student) {
         List<Grade> grades = gradeDAO.findByStudentId(student.getId());
+        
         // 条件1：修课数量≥4门
         if (grades.size() < 4) {
             return false;
         }
-        // 条件2：所有课程成绩≥85分
-        return grades.stream().allMatch(grade -> grade.getScore() >= 85);
+        
+        // 条件2：所有修课的科目课程成绩不为null且≥85分
+        // 确保所有课程都有成绩且成绩≥85分
+        return grades.stream()
+                .allMatch(grade -> grade.getScore() != null && grade.getScore() >= 85);
     }
 }

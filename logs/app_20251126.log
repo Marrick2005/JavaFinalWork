@@ -4,3 +4,53 @@
 [2025-11-26 00:01:51.753] [INFO] Service: [GradeServiceImpl] Method: [queryStudentGrades] Operation: [查询] Args: [7] Time: [6ms] ResultSize: [2] Status: [Success]
 [2025-11-26 00:01:51.756] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [1] Time: [1ms] Status: [Success]
 [2025-11-26 00:01:51.758] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [5] Time: [1ms] Status: [Success]
+[2025-11-26 17:41:17.625] [INFO] 程序启动...
+[2025-11-26 17:41:25.897] [ERROR] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [admin, admin123] Status: [Error] Exception: null
+[2025-11-26 17:42:49.596] [INFO] 程序启动...
+[2025-11-26 17:42:56.636] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [admin, admin123] Time: [269ms] Status: [Success]
+[2025-11-26 17:43:31.156] [INFO] Service: [UserServiceImpl] Method: [addStudent] Operation: [新增] Args: [User{id=null, username='test123', role='Student', name='test123', className='大数据2024-1班', majorName='数据科学与大数据技术'}] Time: [15ms] Status: [Success]
+[2025-11-26 17:43:34.754] [INFO] Service: [UserServiceImpl] Method: [listStudents] Operation: [查询] Time: [18ms] ResultSize: [102] Status: [Success]
+[2025-11-26 17:43:40.983] [INFO] Service: [UserServiceImpl] Method: [listStudents] Operation: [查询] Time: [9ms] ResultSize: [102] Status: [Success]
+[2025-11-26 17:43:44.018] [INFO] Service: [UserServiceImpl] Method: [getUserById] Operation: [查询] Args: [111] Time: [4ms] Status: [Success]
+[2025-11-26 17:43:46.524] [INFO] Service: [UserServiceImpl] Method: [deleteUser] Operation: [删除] Args: [111] Time: [9ms] Status: [Success]
+[2025-11-26 17:43:48.844] [INFO] Service: [UserServiceImpl] Method: [listStudents] Operation: [查询] Time: [9ms] ResultSize: [101] Status: [Success]
+[2025-11-26 17:44:00.094] [INFO] Service: [UserServiceImpl] Method: [listTeachers] Operation: [查询] Time: [2ms] ResultSize: [6] Status: [Success]
+[2025-11-26 17:44:28.630] [INFO] Service: [CourseServiceImpl] Method: [createCourse] Operation: [查询] Args: [Course{id=null, courseName='test1', credits=5, teacherId=6, className='计算机2024-1班', semester='2026-2027-1'}, 6] Time: [9ms] Status: [Success]
+[2025-11-26 17:44:34.695] [INFO] Service: [CourseServiceImpl] Method: [listAllCourses] Operation: [查询] Time: [2ms] ResultSize: [13] Status: [Success]
+[2025-11-26 17:44:51.438] [INFO] Service: [UserServiceImpl] Method: [listStudents] Operation: [查询] Time: [4ms] ResultSize: [101] Status: [Success]
+[2025-11-26 17:45:13.825] [INFO] Service: [GradeServiceImpl] Method: [getStudentsWithFailCount] Operation: [查询] Args: [1] Time: [50ms] ResultSize: [1] Status: [Success]
+[2025-11-26 17:45:21.379] [INFO] 程序结束
+[2025-11-26 17:45:25.268] [INFO] 程序启动...
+[2025-11-26 17:45:35.941] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [teacher7, tea123] Time: [198ms] Status: [Success]
+[2025-11-26 17:45:42.259] [INFO] Service: [CourseServiceImpl] Method: [listTeacherCourses] Operation: [查询] Args: [110] Time: [3ms] ResultSize: [2] Status: [Success]
+[2025-11-26 17:45:46.009] [INFO] Service: [CourseServiceImpl] Method: [listTeacherCourses] Operation: [查询] Args: [110] Time: [2ms] ResultSize: [2] Status: [Success]
+[2025-11-26 17:45:48.168] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [1] Time: [1ms] Status: [Success]
+[2025-11-26 17:45:56.446] [INFO] Service: [GradeServiceImpl] Method: [addGrade] Operation: [新增] Args: [Grade{id=null, studentId=25, offeringId=1, score=66, courseName='Java 应用开发'}] Time: [22ms] Status: [Success]
+[2025-11-26 17:46:02.036] [INFO] Service: [CourseServiceImpl] Method: [listTeacherCourses] Operation: [查询] Args: [110] Time: [7ms] ResultSize: [2] Status: [Success]
+[2025-11-26 17:46:04.014] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [1] Time: [2ms] Status: [Success]
+[2025-11-26 17:46:04.016] [INFO] Service: [GradeServiceImpl] Method: [queryCourseGrades] Operation: [查询] Args: [1] Time: [2ms] ResultSize: [11] Status: [Success]
+[2025-11-26 17:46:04.018] [INFO] Service: [GradeServiceImpl] Method: [calculateCourseAvgScore] Operation: [查询] Args: [1] Time: [2ms] Status: [Success]
+[2025-11-26 17:46:04.019] [INFO] Service: [GradeServiceImpl] Method: [calculateCoursePassRate] Operation: [查询] Args: [1] Time: [1ms] Status: [Success]
+[2025-11-26 17:46:14.950] [INFO] 程序启动...
+[2025-11-26 17:46:24.762] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [2410160121, stu123] Time: [159ms] Status: [Success]
+[2025-11-26 17:46:31.252] [INFO] Service: [GradeServiceImpl] Method: [queryStudentGrades] Operation: [查询] Args: [7] Time: [5ms] ResultSize: [2] Status: [Success]
+[2025-11-26 17:46:31.255] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [1] Time: [1ms] Status: [Success]
+[2025-11-26 17:46:31.261] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [5] Time: [1ms] Status: [Success]
+[2025-11-26 17:46:40.731] [INFO] Service: [GradeServiceImpl] Method: [queryStudentGrades] Operation: [查询] Args: [7] Time: [4ms] ResultSize: [2] Status: [Success]
+[2025-11-26 17:46:40.733] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [1] Time: [1ms] Status: [Success]
+[2025-11-26 17:46:40.735] [INFO] Service: [CourseServiceImpl] Method: [getCourseById] Operation: [查询] Args: [5] Time: [2ms] Status: [Success]
+[2025-11-26 17:46:49.030] [INFO] 程序结束
+[2025-11-26 18:52:08.689] [INFO] 程序启动...
+[2025-11-26 18:52:13.720] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [admin, admin123] Time: [169ms] Status: [Success]
+[2025-11-26 18:52:19.227] [INFO] Service: [GradeServiceImpl] Method: [getStudentsWithFailCount] Operation: [查询] Args: [1] Time: [89ms] ResultSize: [17] Status: [Success]
+[2025-11-26 18:52:21.666] [INFO] Service: [GradeServiceImpl] Method: [getTopStudents] Operation: [查询] Time: [112ms] ResultSize: [0] Status: [Success]
+[2025-11-26 18:52:32.696] [INFO] Service: [UserServiceImpl] Method: [listStudents] Operation: [查询] Time: [3ms] ResultSize: [100] Status: [Success]
+[2025-11-26 18:52:40.881] [INFO] Service: [UserServiceImpl] Method: [listStudents] Operation: [查询] Time: [2ms] ResultSize: [100] Status: [Success]
+[2025-11-26 18:52:57.114] [INFO] Service: [GradeServiceImpl] Method: [calculateClassGPARanking] Operation: [查询] Args: [大数据2024-1班] Time: [30ms] Status: [Success]
+[2025-11-26 18:56:41.803] [INFO] 程序启动...
+[2025-11-26 18:56:41.854] [INFO] 程序启动...
+[2025-11-26 18:56:46.919] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [admin, admin123] Time: [156ms] Status: [Success]
+[2025-11-26 18:56:50.514] [INFO] Service: [GradeServiceImpl] Method: [getTopStudents] Operation: [查询] Time: [76ms] ResultSize: [0] Status: [Success]
+[2025-11-26 19:09:00.073] [INFO] 程序启动...
+[2025-11-26 19:09:05.923] [INFO] Service: [UserServiceImpl] Method: [login] Operation: [查询] Args: [admin, admin123] Time: [158ms] Status: [Success]
+[2025-11-26 19:09:08.816] [INFO] Service: [GradeServiceImpl] Method: [getTopStudents] Operation: [查询] Time: [54ms] ResultSize: [1] Status: [Success]

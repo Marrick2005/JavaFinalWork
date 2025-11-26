@@ -115,24 +115,19 @@ public class BeanContainer {
     }
 
     private void injectDependencies() {
-        // 先处理没有依赖的Bean
         boolean progress;
         do {
             progress = false;
-            // 直接传递原始beanMap给HashMap构造函数，而不是entrySet()
             for (Map.Entry<Class<?>, Object> entry : new HashMap<Class<?>, Object>(beanMap).entrySet()) {
                 Class<?> clazz = entry.getKey();
                 if (clazz.isAnnotationPresent(Component_Marujun.class) && entry.getValue() == null) {
-                    // 查找带Autowired_Marujun注解的构造函数
                     for (Constructor<?> constructor : clazz.getDeclaredConstructors()) {
                         if (constructor.isAnnotationPresent(Autowired_Marujun.class)) {
                             try {
-                                // 获取构造函数的参数类型（依赖的Bean类型）
                                 Class<?>[] paramTypes = constructor.getParameterTypes();
                                 Object[] dependencies = new Object[paramTypes.length];
                                 boolean allDependenciesAvailable = true;
-                                
-                                // 检查所有依赖是否都已可用
+
                                 for (int i = 0; i < paramTypes.length; i++) {
                                     dependencies[i] = beanMap.get(paramTypes[i]);
                                     if (dependencies[i] == null) {
@@ -161,9 +156,9 @@ public class BeanContainer {
                     }
                 }
             }
-        } while (progress); // 直到没有进展为止
+        } while (progress); // 直到没有进展
         
-        // 检查是否还有未处理的Bean（可能存在循环依赖）
+        // 检查是否还有未处理的Bean
         for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
             if (entry.getValue() == null && entry.getKey().isAnnotationPresent(Component_Marujun.class)) {
                 throw new RuntimeException("无法实例化Bean：" + entry.getKey().getName() + "，可能存在循环依赖或缺少依赖");
